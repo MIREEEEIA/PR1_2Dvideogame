@@ -6,6 +6,10 @@ public class Movpersonaje : MonoBehaviour
 {
     public float multiplicador = 5f;
 
+    public float multiplicadorSalto = 5f;
+
+    private bool puedoSaltar = true;
+
     private Rigidbody2D rb;
 
     // Start is called before the first frame update
@@ -18,35 +22,29 @@ public class Movpersonaje : MonoBehaviour
     void Update()
     {
         float movTeclas = Input.GetAxis("Horizontal"); //(a -1f - d 1f)
-        
-        //aproximacion 1
-      /*   transform.position = new Vector3 (
-            transform.position.x+(movTeclas/100),
-            transform.position.y,
-            transform.position.z
-        ); */
+        //float movTeclasY = Input.GetAxis("Vertical"); //(a -1f - d 1f)
+
 
         float miDeltaTime = Time.deltaTime;
 
-        Debug.Log(Time.deltaTime);
-
-        transform.Translate(
-            movTeclas*(Time.deltaTime*multiplicador),
-            0,
-            0
-        );
+        //movimiento personaje
+        rb.velocity = new Vector2(movTeclas*multiplicador, rb.velocity.y);
 
         //salto
-        if(Input.GetKeyDown(KeyCode.Space)){
+        if(Input.GetKeyDown(KeyCode.Space) && puedoSaltar ){
           rb.AddForce(
-            new Vector2(0,2f),
+            new Vector2(0,multiplicadorSalto),
             ForceMode2D.Impulse
-            )
+         );
+         puedoSaltar = false;
         }
-
-         //Debug.Log(Input.GetAxis("Horizontal"));
-       
     }
+
+    void OnCollisionEnter2D(){
+        puedoSaltar = true;
+        Debug.Log("Collision");
+    }
+    
 
     //Esto es un comentario para actualizar github
 }
