@@ -37,4 +37,6 @@ public class Movpersonaje : MonoBehaviour
          //Debug.Log(Input.GetAxis("Horizontal"));
        
     }
+
+    //Esto es un comentario para actualizar github
 }
