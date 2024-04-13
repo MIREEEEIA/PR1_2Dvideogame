@@ -6,10 +6,12 @@ public class Movpersonaje : MonoBehaviour
 {
     public float multiplicador = 5f;
 
+    private Rigidbody2D rb;
+
     // Start is called before the first frame update
     void Start()
     {
-       Debug.Log("Hola Mundo!");
+       rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -33,6 +35,14 @@ public class Movpersonaje : MonoBehaviour
             0,
             0
         );
+
+        //salto
+        if(Input.GetKeyDown(KeyCode.Space)){
+          rb.AddForce(
+            new Vector2(0,2f),
+            ForceMode2D.Impulse
+            )
+        }
 
          //Debug.Log(Input.GetAxis("Horizontal"));
        
