@@ -2,27 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movpersonaje : MonoBehaviour
+public class MovPersonaje : MonoBehaviour
 {
-    public float multiplicador = 5f;
+    private float multiplicador = 5f;
 
-    public float multiplicadorSalto = 5f;
+    private float multiplicadorSalto = 5f;
 
     private bool puedoSaltar = true;
 
     private Rigidbody2D rb;
+
+    private Animator animatorController;
+
+    GameObject respawn;
+
 
     // Start is called before the first frame update
     void Start()
     {
        rb = GetComponent<Rigidbody2D>();
 
-       transform.position = new Vector3(-9.1f, 3.0f, 0);
+       animatorController = this.GetComponent<Animator>();
+
+       respawn = GameObject.Find("Respawn");
+      
+       transform.position = respawn.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
+
+         if(GameManager.estoyMuerto) return;
+
          float miDeltaTime = Time.deltaTime;
 
         //movimiento personaje
@@ -31,13 +43,23 @@ public class Movpersonaje : MonoBehaviour
 
         rb.velocity = new Vector2(movTeclas*multiplicador, rb.velocity.y);
 
-        //flip <--
+        //izq <--
         if(movTeclas < 0){
           this.GetComponent<SpriteRenderer>().flipX = true;  
         }else if(movTeclas > 0){
+
+        //dcha
           this.GetComponent<SpriteRenderer>().flipX = false;  
         }
         
+        //Animacion walking
+        if(movTeclas != 0){
+          animatorController.SetBool("activaCamina", true);
+        }else{
+          animatorController.SetBool("activaCamina", false);
+        }
+        
+
 
         //salto
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.5f);
@@ -45,7 +67,7 @@ public class Movpersonaje : MonoBehaviour
 
         if(hit){
             puedoSaltar = true;
-            Debug.Log(hit.collider.name);
+            //Debug.Log(hit.collider.name);
         }else{
             puedoSaltar = false;
         }
@@ -55,15 +77,32 @@ public class Movpersonaje : MonoBehaviour
             new Vector2(0,multiplicadorSalto),
             ForceMode2D.Impulse
          );
-         puedoSaltar = false;
         }
+
+
+       //Comprobar si me he salido de la pantalla por abajo
+
+       if(transform.position.y <= -7){
+        Respawnear();
+       }
+
+       // 0 vidas
+
+       if(GameManager.vidas <= 0){
+        GameManager.estoyMuerto = true;
+       }
+
     }
 
-    /*void OnCollisionEnter2D(){
-        puedoSaltar = true;
-        Debug.Log("Collision");
-    }*/
-    
+
+    public void Respawnear(){
+
+      Debug.Log("vidas: "+GameManager.vidas);
+      GameManager.vidas = GameManager.vidas - 1;
+      Debug.Log("vidas: "+GameManager.vidas);
+
+      transform.position = respawn.transform.position;
+    }
 
     //Esto es un comentario para actualizar github
 }
