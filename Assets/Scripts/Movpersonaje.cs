@@ -10,6 +10,8 @@ public class MovPersonaje : MonoBehaviour
 
     private bool puedoSaltar = true;
 
+    public bool miraDerecha = true;
+
     private Rigidbody2D rb;
 
     private Animator animatorController;
@@ -46,10 +48,12 @@ public class MovPersonaje : MonoBehaviour
         //izq <--
         if(movTeclas < 0){
           this.GetComponent<SpriteRenderer>().flipX = true;  
+          miraDerecha = false;
         }else if(movTeclas > 0){
 
         //dcha
           this.GetComponent<SpriteRenderer>().flipX = false;  
+          miraDerecha = true;
         }
         
         //Animacion walking
@@ -93,7 +97,6 @@ public class MovPersonaje : MonoBehaviour
        }
 
     }
-
 
     public void Respawnear(){
 
