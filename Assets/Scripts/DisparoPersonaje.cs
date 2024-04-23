@@ -16,7 +16,7 @@ public class DisparoPersonaje : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(keyCode.E)){
+        if(Input.GetKeyDown(KeyCode.E)){
 
             Instantiate(fuego, transform.position, Quaternion.identity);
 

@@ -14,17 +14,27 @@ public class FuegoScript : MonoBehaviour
         bolaDerecha = personaje.GetComponent<MovPersonaje>().miraDerecha;
     }
 
-    // Update is called once per frame
+    // Update is called once per frames
     void Update()
     {
         if(bolaDerecha){
-            transform.Translate(0.01f, 0, 0);
+            transform.Translate(0.01f, 0, 0, Space.World);
          }else{
             transform.Translate(-0.01f, 0, 0);
-
-
         }
         
 }
+
+ void OnTriggerEnter2D(Collider2D col){
+    //Debug.Log(col.gameObject.name.StartsWith("Fantasma"));
+
+    if(col.gameObject.tag == "Enemigo"){
+        Destroy(col.gameObject);
+        Destroy(this.gameObject);
+
+        //Destroy(col.gameObject);
+
+    }
+ }
 
 }
