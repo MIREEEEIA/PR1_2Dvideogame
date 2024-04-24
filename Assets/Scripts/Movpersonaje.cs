@@ -93,6 +93,7 @@ public class MovPersonaje : MonoBehaviour
 
        //Comprobar si me he salido de la pantalla por abajo
        if(transform.position.y <= -7){
+        AudioManager.Instance.SonarClipUnaVez(AudioManager.Instance.fxDead);
         Respawnear();
        }
 
@@ -137,6 +138,27 @@ public class MovPersonaje : MonoBehaviour
         soyAzul = true;
       }
       
+    }
+
+    void OnTrigerEnter2D(Collider2D col){
+
+      if(col.gameObject.name == "Tunel"){
+        //disparo tunel
+        AudioManager.Instance.IniciarEfectoTunel();
+      }
+
+       if(col.gameObject.name == "Burbuja"){
+        //disparo tunel
+        AudioManager.Instance.IniciarEfectoBurbuja();
+      }
+    }
+
+    void OnTrigerExit2D(Collider2D col){
+
+      if(col.gameObject.name == "Tunel" || col.gameObject.name =="Burbuja"){
+        AudioManager.Instance.IniciarEfectoDefault();
+      }
+
     }
 
     
