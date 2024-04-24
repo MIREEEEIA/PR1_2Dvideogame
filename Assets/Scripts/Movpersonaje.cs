@@ -109,7 +109,7 @@ public class MovPersonaje : MonoBehaviour
          rb.velocity = new Vector2(movTeclas*multiplicador, rb.velocity.y);
 
          if(activaSaltoFixed == true){
-           *rb.AddForce(
+           rb.AddForce(
             new Vector2(0,multiplicadorSalto),
             ForceMode2D.Impulse);
 
@@ -128,7 +128,6 @@ public class MovPersonaje : MonoBehaviour
     }
 
     public void CambiarColor(){
-
 
       if(soyAzul){
         this.GetComponent<SpriteRenderer>().color = Color.white;
