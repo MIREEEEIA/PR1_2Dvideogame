@@ -151,7 +151,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: e7f73d8aa046e2b47a0cb86f4ae3f5c5, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.165
   m_Pitch: 1
@@ -254,6 +254,10 @@ MonoBehaviour:
   fxCoin: {fileID: 8300000, guid: 4dc47eb14a92fe942b4aba8f0c4263cc, type: 3}
   fxDead: {fileID: 8300000, guid: 012c50bc3e21dae4f91d8dc15e1a8a98, type: 3}
   fxFire: {fileID: 8300000, guid: 9335dd706c5fba54790ca7b0e415fdfd, type: 3}
+  musicObj: {fileID: 0}
+  defaultSnapshot: {fileID: 0}
+  tunelSnapshot: {fileID: 0}
+  submarinoSnapshot: {fileID: 0}
 --- !u!4 &61773989
 Transform:
   m_ObjectHideFlags: 0
